@@ -1,5 +1,5 @@
 {
     "projectType":"javascript",
-    "edgedriverPath":"-d driver",
+    "chromedriverPath":"-d driver",
     "vscodeExtensions":[]
   }
