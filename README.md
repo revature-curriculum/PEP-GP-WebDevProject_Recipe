@@ -166,20 +166,6 @@ Files:
 
 ---
 
-## Java Version Note
-
-If you’re running this locally and see Java version issues, check your installed version using:
-
-```bash
-java -version
-```
-
-Make sure the version is between Java 9 and Java 22.
-
----
-
----
-
 ## CORS Explanation
 
 CORS (Cross-Origin Resource Sharing) is a security feature implemented by browsers to restrict cross-origin HTTP requests initiated from scripts. Since your frontend and backend run on the same machine but from different contexts (e.g., `file://` for frontend vs `http://localhost:8081` for backend), CORS preflight requests ensure that the backend explicitly allows the frontend to interact with it.
