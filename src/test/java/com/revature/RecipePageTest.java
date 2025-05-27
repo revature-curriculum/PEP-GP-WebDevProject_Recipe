@@ -7,9 +7,9 @@ import java.io.File;
 import java.time.Duration;
 import java.util.List;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
@@ -18,6 +18,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.javalin.Javalin;
 
 /**
  * This class contains Selenium tests written in Java. Selenium is a tool used
@@ -29,18 +31,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class RecipePageTest {
 
-    private WebDriver webDriver;
+    private static WebDriver webDriver;
 
     @SuppressWarnings("unused")
-    private WebDriverWait wait;
+    private static WebDriverWait wait;
+
+    private static Javalin app;
 
     /**
      * Set up the edge driver for running bdd selenium tests in the browser.
      * 
      * @throws InterruptedException
      */
-    @Before
-    public void setUp() throws InterruptedException {
+    @BeforeClass
+    public static void setUp() throws InterruptedException {
+        // Start the backend programmatically
+        int port = 8081;
+        app = Main.main(new String[] { String.valueOf(port) });
         System.setProperty("webdriver.edge.driver", "driver/msedgedriver");
 
         File file = new File("src/main/resources/public/frontend/recipe/recipe-page.html");
@@ -54,6 +61,20 @@ public class RecipePageTest {
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
         Thread.sleep(1000);
+    }
+
+    /**
+     * close down hanging browsers spawned by the chromedriver
+     */
+    @AfterClass
+    public static void tearDown() {
+        // Stop the backend and clean up
+        if (app != null) {
+            app.stop();
+        }
+        if (webDriver != null) {
+            webDriver.quit();
+        }
     }
 
     /**
@@ -244,12 +265,4 @@ public class RecipePageTest {
         Assert.assertTrue(searchButton.getTagName().equals("button"));
     }
 
-    /**
-     * close down hanging browsers spawned by the chromedriver
-     */
-    @After
-    public void tearDown() {
-        // Close the browser
-        webDriver.quit();
-    }
 }
