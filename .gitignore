@@ -1,4 +1,4 @@
-# Compiled class file
+1# Compiled class file
 *.class
 
 # Log file
@@ -45,5 +45,6 @@ replay_pid*
 #H2
 **/h2/**
 
-#Misc
+#Drivers
+/driver/
 *.deb
