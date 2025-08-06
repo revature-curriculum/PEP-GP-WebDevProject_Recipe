@@ -62,6 +62,7 @@ public class RegisterTest {
     @Test
     public void validRegistrationTest() throws InterruptedException {
         WebElement nameInput = driver.findElement(By.id("username-input"));
+        WebElement emailInput = driver.findElement(By.id("email-input"));
         WebElement passwordInput = driver.findElement(By.id("password-input"));
         WebElement passwordRepeatInput = driver.findElement(By.id("repeat-password-input"));
         WebElement submitButton = driver.findElement(By.id("register-button"));
@@ -75,6 +76,7 @@ public class RegisterTest {
                         .withHeader("Access-Control-Allow-Origin", "*"));
 
         nameInput.sendKeys("correct");
+        emailInput.sendKeys("correct@example.com");
         passwordInput.sendKeys("correct");
         passwordRepeatInput.sendKeys("correct");
         submitButton.click();
@@ -82,7 +84,6 @@ public class RegisterTest {
         Thread.sleep(1000);
         assertTrue(driver.getCurrentUrl().contains("login"));
     }
-
     /**
      * Test for failed registration due to duplicate account, which should display
      * an alert without redirecting.
@@ -150,3 +151,4 @@ public class RegisterTest {
         }
     }
 }
+
